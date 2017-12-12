@@ -66,8 +66,7 @@ message Gzip {
   // Array of strings that allows specifying which mime-types yield compression; e.g.
   // application/json, text/html, etc. When this field is not specified, compression will be applied
   // to any "content-type".
-  repeated string content_type = 6
-      [(validate.rules).repeated = {min_items: 0, max_items: 30, unique: true}];
+  repeated string content_type = 6;
 
   // Allows disabling compression if response contains "etag" (entity tag)
   // header. Default is false.
