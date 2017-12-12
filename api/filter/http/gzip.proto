@@ -6,6 +6,8 @@ package envoy.api.v2.filter.http;
 
 import "validate/validate.proto";
 
+import "google/protobuf/wrappers.proto";
+
 // Gzip is an HTTP filter which enables Envoy to compress dispatched data from an upstream
 // service upon client request. This is useful in situations where large payloads need to
 // be transmitted without compromising the response time. Note that when compression is applied,
@@ -22,10 +24,12 @@ message Gzip {
   // compression. Default value is 30.
   google.protobuf.UInt32Value content_length = 2 [(validate.rules).uint32.gte = 30];
 
-  enum CompressionLevel {
-    DEFAULT = 0;
-    BEST = 1;
-    SPEED = 2;
+  message CompressionLevelEnum {
+    enum CompressionLevel {
+      DEFAULT = 0;
+      BEST = 1;
+      SPEED = 2;
+    }
   }
 
   // Allows selecting Zlib's compression level. This setting will affect
@@ -33,10 +37,11 @@ message Gzip {
   // compression at cost of higher latency, "SPEED" provides lower compression with minimum impact
   // on response time. "DEFAULT" provides an optimal result between speed and compression. This
   // field will be set to "DEFAULT" if not specified.
-  CompressionLevel compression_level = 3 [(validate.rules).enum.defined_only = true];
+  CompressionLevelEnum.CompressionLevel compression_level = 3
+      [(validate.rules).enum.defined_only = true];
 
   enum CompressionStrategy {
-    DEFAULT = 0;
+    DEFAULT_STRATEGY = 0;
     FILTERED = 1;
     HUFFMAN = 2;
     RLE = 3;
