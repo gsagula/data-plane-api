@@ -30,7 +30,7 @@ message CheckRequest {
 // downstream client or, to modify/add request headers being dispatched to the upstream.
 message HttpResponse {
   // Http status code.
-  envoy.api.v2.core.HttpStatusCode status_code = 1;
+  envoy.api.v2.core.HttpStatusCode.Code status_code = 1;
 
   // Http entity headers.
   map<string, string> headers = 2;
