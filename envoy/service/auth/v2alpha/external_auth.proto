@@ -6,7 +6,7 @@ package envoy.service.auth.v2alpha;
 option go_package = "v2alpha";
 option java_generic_services = true;
 
-import "envoy/api/v2/core/http_status_code.proto";
+import "envoy/api/v2/core/http_status.proto";
 import "envoy/service/auth/v2alpha/attribute_context.proto";
 
 import "google/rpc/status.proto";
@@ -30,7 +30,7 @@ message CheckRequest {
 // downstream client or, to modify/add request headers being dispatched to the upstream.
 message HttpResponse {
   // Http status code.
-  envoy.api.v2.core.HttpStatusCode.Code status_code = 1;
+  envoy.api.v2.core.HttpStatus status = 1;
 
   // Http entity headers.
   map<string, string> headers = 2;

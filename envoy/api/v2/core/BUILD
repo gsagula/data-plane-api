@@ -93,16 +93,16 @@ api_go_proto_library(
 )
 
 api_proto_library(
-    name = "http_status_code",
-    srcs = ["http_status_code.proto"],
+    name = "http_status",
+    srcs = ["http_status.proto"],
     visibility = [
         ":friends",
     ],
 )
 
 api_go_proto_library(
-    name = "http_status_code",
-    proto = ":http_status_code",
+    name = "http_status",
+    proto = ":http_status",
 )
 
 api_proto_library(
