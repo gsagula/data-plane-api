@@ -5,6 +5,7 @@ option go_package = "v2";
 
 import "envoy/api/v2/core/address.proto";
 import "envoy/api/v2/core/base.proto";
+import "envoy/api/v2/route/route.proto";
 import "envoy/type/percent.proto";
 
 import "google/protobuf/duration.proto";
@@ -268,6 +269,9 @@ message HTTPResponseProperties {
 
   // Map of additional headers configured to be logged.
   map<string, string> response_headers = 4;
+
+  // Map of trailers configured to be logged.
+  map<string, string> response_trailers = 5;
 }
 
 // [#not-implemented-hide:] Not configuration. TBD how to doc proto APIs.
@@ -331,6 +335,9 @@ message AccessLogFilter {
 
     // Or filter.
     OrFilter or_filter = 7;
+
+    // Header filter.
+    HeaderFilter header_filter = 8;
   }
 }
 
@@ -412,6 +419,13 @@ message AndFilter {
 // filter returns true immediately.
 message OrFilter {
   repeated AccessLogFilter filters = 2 [(validate.rules).repeated .min_items = 2];
+}
+
+// Filters requests based on the presence or value of a request header.
+message HeaderFilter {
+  // Only requests with a header which matches the specified HeaderMatcher will pass the filter
+  // check.
+  envoy.api.v2.route.HeaderMatcher header = 1 [(validate.rules).message.required = true];
 }
 
 // Custom configuration for an AccessLog that writes log entries directly to a file.
